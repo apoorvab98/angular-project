@@ -1,0 +1,46 @@
+<p>modelform works!</p>
+<form #userForm="ngForm" (ngSubmit)="onSubmit()">
+    {{userForm.value|json}}<br>
+    {{userModel|json}}<br>
+    <label>Name:</label>
+    <input type="text" #name="ngModel" name="name" required [(ngModel)]="userModel.name"/><br>
+    {{name.invalid}}
+    <small [class.d-none]="name.valid||name.untouched">Name is required</small>
+    <small [class.d-none]="name.dirty || name.untouched">Name is not changed</small>
+
+    <label>Email:</label>
+    <input type="email" name="email" #email="ngModel"  [(ngModel)]="userModel.email"/>
+    <label>Phone number:</label>
+    
+    <input type="tel" name="phone" required #phone="ngModel" required pattern="^\d{10}$" [(ngModel)]="userModel.phone"
+    [class.invalid-st]="phone.invalid && phone.touched"/><br>
+    
+    <div *ngIf="phone.errors && (phone.invalid||phone.touched)">
+        <small *ngIf="phone.errors.required">Phone number is required</small>
+        <small *ngIf="phone.errors.pattern">Phone number must be 10 digits</small>
+    </div>
+    <!-- <div>
+        {{email.className}}
+    </div> -->
+
+    <label>Select topic</label>
+    <select name="topic" #topic="ngModel" [(ngModel)]="userModel.topic" (blur)="validateTopic(topic.value)" (change)="validateTopic(topic.value)"><br>
+        <option value="default">select option</option>
+        <option *ngFor="let topic of topics">{{topic}}</option>
+    </select>
+    <small [class.d-none]="!hasError ||topic.untouched">Please choose a topic</small>
+    <br>
+
+    <label>Select Time preference.</label>
+    <input type="radio" name="timepref" value="Morning" [(ngModel)]="userModel.timepref">
+    <label>Morning(9-12PM)</label>
+    <input type="radio" name="timepref" value="Evening" [(ngModel)]="userModel.timepref">
+    <label>Evening(5-8PM)</label>
+    <br>
+
+    <input type="checkbox" name="subscribe" [(ngModel)]="userModel.subscribe">
+    <label>Subscribe</label><br>
+    <!-- <input type="submit"  value="submit"> -->
+    <button type="submit"  [disabled]="userForm.form.invalid||hasError">Submit</button>
+
+</form>

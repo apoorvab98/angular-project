@@ -1,0 +1,43 @@
+<p>reactivevalidation works!</p>
+<form [formGroup]="registerform" (submit)="register()">
+    <label>
+        FirstName:
+    </label>
+    <div>
+        <input type="text" formControlName="firstName"/>
+    </div>
+    <div>
+        <div class="text-danger" *ngIf="registerform.get('firstName').touched && registerform.get('firstName').hasError('required')">
+            First Name is required
+        </div>
+        <div class="text-danger" *ngIf="registerform.get('firstName').touched && registerform.get('firstName').hasError('minlength')">
+            First Name has atleast 3 characters!!
+        </div>
+    </div>
+    <label>
+        LastName:
+    </label>
+    <div>
+        <input type="text" formControlName="lastName"/>
+        <div class="text-danger" *ngIf="registerform.get('lastName').touched && registerform.get('lastName').hasError('required')">
+            Last Name is required
+        </div>
+    </div>
+    <div>
+        Gender: <input type="radio"id="male_r" formControlName="gender" [value]="'Male'" />
+    <label for ="male_r"> Male </label><br>
+      <input type="radio" id="female_r" formControlName="gender" [value]="'Female'" />
+       <label for="female_r">Female</label> <br/>
+
+   <br/> 
+    </div>
+    <div>
+    <select formControlName="name">
+        <option value="">Choose city</option>
+        <option *ngFor="let c of cities">{{c}}</option>
+      </select>
+    </div>
+
+     <button type="submit" [disabled]="!registerform.valid">Create</button> 
+    
+</form>

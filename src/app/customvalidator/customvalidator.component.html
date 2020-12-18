@@ -1,0 +1,60 @@
+<p>customvalidator works!</p>
+<p>reactivevalidation works!</p>
+<div class="row">
+<form [formGroup]="registerform" (submit)="register()" class="form-horizontal" novalidate>
+    <label>
+        FirstName:
+    </label>
+    <div>
+        <input type="text" formControlName="firstName" class="form-control"/>
+    </div>
+    <div>
+        <div class="text-danger" *ngIf="registerform.controls.firstName.touched && registerform.controls.firstName.hasError('required')">
+            First Name is required
+        </div>
+        <div class="text-danger" *ngIf="registerform.controls.firstName.touched && registerform.controls.firstName.hasError('minlength')">
+            First Name has atleast 3 characters!!
+        </div>
+        <div class="text-danger" *ngIf="registerform.controls.firstName.touched && registerform.controls.firstName.hasError('nospecialchars')">
+            First Name cannot contain dot or space!!
+        </div>
+    </div>
+    <label>
+        Password:
+    </label>
+    <div>
+        <input type="text" formControlName="pwd" class="form-control"/>
+    </div>
+    <div>
+        <!-- <div class="text-danger" *ngIf="registerform.controls.pwd.touched && registerform.controls.pwd.hasError('minlength')">
+            Password should be strong!!
+        </div> -->
+        <div class="text-danger" *ngIf="registerform.controls.pwd.touched && registerform.controls.pwd.hasError('strongpwd')">
+            Password should be strong!!
+        </div>
+    </div>  
+    <!-- <label>
+        Reenter Password:
+    </label>
+    <div>
+        <input type="text" formControlName="pwd2" class="form-control"/>
+    </div>
+    <div>
+        <div class="text-danger" *ngIf="registerform.controls.pwd.touched && registerform.controls.pwd.hasError('checkpwd')">
+            Password should be same!!
+        </div>
+        <!- <div class="text-danger" *ngIf="registerform.controls.pwd.touched && registerform.controls.pwd.hasError('strongpwd')">
+            Password should be strong!!
+        </div> -->
+    <!-- </div>    -->
+      
+    <!-- <div>
+        <input type="text" formControlName="lastName"/>
+        <div class="text-danger" *ngIf="registerform.get('lastName').touched && registerform.get('lastName').hasError('required')">
+            Last Name is required
+        </div>
+    </div> -->
+     <button type="submit" [disabled]="!registerform.valid">Create</button> 
+    
+</form>
+</div>
